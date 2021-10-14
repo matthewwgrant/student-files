@@ -1,13 +1,20 @@
 const gallery = document.getElementById('gallery');
+// const employeeList = document.querySelector('.gallery');
+// const info = document.querySelectorAll('.card');
 
-fetch('https://randomuser.me/api/?results=12')
+fetch('https://randomuser.me/api/?results=12&nat=us')
 	.then(res => res.json())
-	.then(data => data.results)
+	.then(data => {
+		employeeData = data.results;
+		console.log(employeeData[0])
+	})
 	.then(generateEmployees)
+	.then(generateModal)
+	
 
 
 function generateEmployees(data) {
-	const employees = data.map(employee => `
+	const employees = employeeData.map(employee => `
 			<div class="card">
                 <div class="card-img-container">
                     <img class="card-img" src="${employee.picture.thumbnail}" alt="profile picture">
@@ -25,19 +32,19 @@ function generateEmployees(data) {
 }
 
 function generateModal(data) {
-	const modal = `
+	const modal = employeeData.map(employee => `
 		 <div class="modal-container">
             <div class="modal">
                 <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                 <div class="modal-info-container">
-                    <img class="modal-img" src="${data.picture.medium}" alt="profile picture">
-                    <h3 id="name" class="modal-name cap">name</h3>
-                    <p class="modal-text">${data.email}</p>
-                    <p class="modal-text cap">${data.city}</p>
+                    <img class="modal-img" src="${employee.picture.medium}" alt="profile picture">
+                    <h3 id="name" class="modal-name cap">${employee.name.first} ${employee.name.last}</h3>
+                    <p class="modal-text">${employee.email}</p>
+                    <p class="modal-text cap">${employee.location.city}</p>
                     <hr>
                     <p class="modal-text">(555) 555-5555</p>
-                    <p class="modal-text">${data.location.street}, ${data.location.city}, ${data.location.state} ${data.location.postcode}</p>
-                    <p class="modal-text">Birthday: ${data.dob.date}</p>
+                    <p class="modal-text">${employee.location.street.number} ${employee.location.street.name}, ${employee.location.city}, ${employee.location.state} ${employee.location.postcode}</p>
+                    <p class="modal-text">Birthday: ${employee.dob.date}</p>
                 </div>
             </div>
 
@@ -47,5 +54,11 @@ function generateModal(data) {
                 <button type="button" id="modal-next" class="modal-next btn">Next</button>
             </div>
         </div>
-	`
+		`
+	);
+	// console.log(modal[0])
 }
+
+
+
+
