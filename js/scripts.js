@@ -1,16 +1,9 @@
 const gallery = document.getElementById('gallery');
-// const employeeList = document.querySelector('.gallery');
-// const info = document.querySelectorAll('.card');
 
 fetch('https://randomuser.me/api/?results=12&nat=us')
 	.then(res => res.json())
-	.then(data => {
-		employeeData = data.results;
-		console.log(employeeData[0])
-	})
+	.then(data => employeeData = data.results)
 	.then(generateEmployees)
-	.then(generateModal)
-	
 
 
 function generateEmployees(data) {
@@ -32,7 +25,8 @@ function generateEmployees(data) {
 }
 
 function generateModal(data) {
-	const modal = employeeData.map(employee => `
+	const regex = /(\d{4})[-](\d{2})[-](\d{2})/
+	const employeeModals = employeeData.map(employee => `
 		 <div class="modal-container">
             <div class="modal">
                 <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -44,21 +38,24 @@ function generateModal(data) {
                     <hr>
                     <p class="modal-text">(555) 555-5555</p>
                     <p class="modal-text">${employee.location.street.number} ${employee.location.street.name}, ${employee.location.city}, ${employee.location.state} ${employee.location.postcode}</p>
-                    <p class="modal-text">Birthday: ${employee.dob.date}</p>
+                    <p class="modal-text">Birthday: ${employee.dob.date.slice(0, 10).replace(regex, '$2/$3/$1')}</p>
                 </div>
             </div>
 
-            // IMPORTANT: Below is only for exceeds tasks 
             <div class="modal-btn-container">
                 <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
                 <button type="button" id="modal-next" class="modal-next btn">Next</button>
             </div>
         </div>
 		`
-	);
-	// console.log(modal[0])
+	).join('');
+
+	gallery.insertAdjacentHTML('beforeend', employeeModals);
 }
 
+gallery.addEventListener('click', () => {
 
+	generateModal(employeeData);
+})
 
 
