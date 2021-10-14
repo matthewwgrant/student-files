@@ -20,7 +20,7 @@ function generateEmployees(data) {
             </div>
 		`
 
-	);
+	).join('');
 	gallery.insertAdjacentHTML('beforeend', employees);
 }
 
