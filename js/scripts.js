@@ -17,7 +17,9 @@ fetch(url)
 		})
 	.catch(error => console.log('Something seems to have gone wrong: ', error))
 
-
+/*
+	Function to genetate cards with employee information
+*/
 
 function generateEmployees(data) {
 
@@ -47,7 +49,9 @@ function generateEmployees(data) {
 	
 }
 
-
+/*
+	Function genetate modals
+*/
 
 function generateModal(data) {
 	const employeeInfo = employeeData[0].results;
@@ -82,7 +86,9 @@ function generateModal(data) {
 }
 
 
-
+/*
+	Event listener that displays modal of employee who's card was selected
+*/
 gallery.addEventListener('click', (e) => {
 	const cards = document.querySelectorAll('.card');
 
@@ -94,16 +100,25 @@ gallery.addEventListener('click', (e) => {
 			}
 		}
 		gallery.insertAdjacentHTML('beforeend', modals[index]);
-		// console.log(e.target)
+
 	}
 
 	
 });
 
+/*
+	Event listener that closes open modal
+*/
+document.addEventListener('click', (e) => {
+	const button = document.querySelector('.modal-close-btn');
+	const modalContainer = document.querySelector('.modal-container');
+	const strong = document.querySelector('strong');
 
-// document.addEventListener('click', () => {
-// 	document.querySelector('.modal-container').remove();
-// });
+	if ( e.target === button || e.target == modalContainer || e.target === strong ) {
+		document.querySelector('.modal-container').remove();
+	}
+	
+});
 
 
 
