@@ -18,7 +18,7 @@ fetch(url)
 	.catch(error => console.log('Something seems to have gone wrong: ', error))
 
 /*
-	Function to genetate cards with employee information
+	Function to genetate cards with employee information and push into array
 */
 
 function generateEmployees(data) {
@@ -50,7 +50,7 @@ function generateEmployees(data) {
 }
 
 /*
-	Function genetate modals
+	Function genetate modals and push into array
 */
 
 function generateModal(data) {
@@ -58,32 +58,33 @@ function generateModal(data) {
 	const regex = /(\d{4})[-](\d{2})[-](\d{2})/;
 	
 	for ( let i = 0; i < employeeInfo.length; i++) {
-	let employeeModal = `
-		 <div class="modal-container">
-            <div class="modal">
-                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-                <div class="modal-info-container">
-                    <img class="modal-img" src="${employeeInfo[i].picture.medium}" alt="profile picture">
-                    <h3 id="name" class="modal-name cap">${employeeInfo[i].name.first} ${employeeInfo[i].name.last}</h3>
-                    <p class="modal-text">${employeeInfo[i].email}</p>
-                    <p class="modal-text cap">${employeeInfo[i].location.city}</p>
-                    <hr>
-                    <p class="modal-text">${employeeInfo[i].cell}</p>
-                    <p class="modal-text">${employeeInfo[i].location.street.number} ${employeeInfo[i].location.street.name}, ${employeeInfo[i].location.city}, ${employeeInfo[i].location.state} ${employeeInfo[i].location.postcode}</p>
-                    <p class="modal-text">Birthday: ${employeeInfo[i].dob.date.slice(0, 10).replace(regex, '$2/$3/$1')}</p>
-                </div>
-            </div>
+		let employeeModal = `
+			 <div class="modal-container">
+	            <div class="modal">
+	                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+	                <div class="modal-info-container">
+	                    <img class="modal-img" src="${employeeInfo[i].picture.medium}" alt="profile picture">
+	                    <h3 id="name" class="modal-name cap">${employeeInfo[i].name.first} ${employeeInfo[i].name.last}</h3>
+	                    <p class="modal-text">${employeeInfo[i].email}</p>
+	                    <p class="modal-text cap">${employeeInfo[i].location.city}</p>
+	                    <hr>
+	                    <p class="modal-text">${employeeInfo[i].cell}</p>
+	                    <p class="modal-text">${employeeInfo[i].location.street.number} ${employeeInfo[i].location.street.name}, ${employeeInfo[i].location.city}, ${employeeInfo[i].location.state} ${employeeInfo[i].location.postcode}</p>
+	                    <p class="modal-text">Birthday: ${employeeInfo[i].dob.date.slice(0, 10).replace(regex, '$2/$3/$1')}</p>
+	                </div>
+	            </div>
 
-            <div class="modal-btn-container">
-                <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-                <button type="button" id="modal-next" class="modal-next btn">Next</button>
-            </div>
-        </div>
-		`
+	            <div class="modal-btn-container">
+	                <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+	                <button type="button" id="modal-next" class="modal-next btn">Next</button>
+	            </div>
+	         </div>
+			`
 
 		modals.push(employeeModal);
 	}
 }
+
 
 
 /*
@@ -106,6 +107,7 @@ gallery.addEventListener('click', (e) => {
 	
 });
 
+
 /*
 	Event listener that closes open modal
 */
@@ -119,6 +121,8 @@ document.addEventListener('click', (e) => {
 	}
 	
 });
+
+
 
 
 
